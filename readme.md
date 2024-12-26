@@ -3,10 +3,19 @@
 
 These SQL queries have been assigned by Professor Dr. Qasim and cover all the topics studied till the mid-term in the DBMS course.
 
+---
+
 **IF YOU ARE STUDENT AND WANTS TO PRACTICE THEN I DON'T RECOMMEND YOU TO COPY AND PASTE YOU CAN SEE AND FIRST START WRITING BY YOURSELF THEN YOU CAN CHECK.**
 
 *Found any mistake? Start a issue on this repo*
 
+---
+
+✅ 92 Queries Completed
+🌀 8 Queries will be added
+😠 Some Queries are left blank for you to practice 😉.
+
+---
 
 1. Display the full name of employees by concatenating first and last names.
 ```sql
@@ -29,8 +38,9 @@ SELECT 'Employee:' || first_name || ' ' || last_name from employees;
 ```
 
 5. Combine employee name and department name into a single string
+*Department name does not exist in employees table*
 ```sql
-SELECT 'Employee:' || first_name || ' ' || last_name from employees;
+SELECT 'Employee:' || first_name || ' ' || department_id from employees;
 ```
 
 6. Add a literal string to the full name of employees to show their designation
