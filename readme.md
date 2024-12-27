@@ -5,14 +5,12 @@ These SQL queries have been assigned by Professor Dr. Qasim and cover all the to
 
 ---
 
-**IF YOU ARE STUDENT AND WANTS TO PRACTICE THEN I DON'T RECOMMEND YOU TO COPY AND PASTE YOU CAN SEE AND FIRST START WRITING BY YOURSELF THEN YOU CAN CHECK.**
+**IF YOU ARE STUDENT AND WANTS TO PRACTICE THEN I DON'T RECOMMEND YOU TO COPY AND PASTE YOU CAN SEE AND FIRST START QUERYING BY YOURSELF THEN YOU CAN CHECK HERE**
 
 *Found any mistake? Start a issue on this repo*
 
 ---
 
-✅ 92 Queries Completed
-🌀 8 Queries will be added
 😠 Some Queries are left blank for you to practice 😉.
 
 ---
@@ -21,6 +19,7 @@ These SQL queries have been assigned by Professor Dr. Qasim and cover all the to
 ```sql
 SELECT first_name || ' ' || last_name AS "First Name" from employees;
 ```
+
 
 2. Display the full name of employees along with thier job titles.
 ```sql
@@ -62,8 +61,6 @@ SELECT first_name || ' Manager Sahab' from employees where job_id LIKE '%MAN';
 ```sql
 SELECT 'Hi ' || first_name || ', Have a great day!' from employees;
 ```
-
-
 
 11. Display employees with salaries above a certain threshold
 ```sql
@@ -176,10 +173,7 @@ SELECT * FROM employees where department_id in(60, 80);
 SELECT * FROM employees where salary < 5000 OR salary > 20000;
 ```
 
-33. Show employees who are either managers or belong to department 90.
-```sql
 SELECT * FROM employees where job_id like '%MAN' OR department_id = 90;
-```
 
 34. List employees hired after a specific date and earning a salary above 7000
 ```sql
@@ -486,6 +480,48 @@ SELECT department_id, SUM(salary) FROM employees group by department_id;
 
 92. Find the average salary by job ID.
 ```sql
-SELECT job_id, SUM(salary) FROM employees group by job_id;
+SELECT job_id, AVG(salary) FROM employees group by job_id;
+```
+
+93. Count the employees in departments with more than 5 employees.
+```sql
+SELECT department_id, count(*) as "No. of Employees" from employees group by department_id having count(*) > 5;
+```
+
+94. Calculate the total commission earned by all employees.
+```sql
+SELECT SUM(commission_pct) "Total Commission Percentage", SUM(salary * commission_pct) "Total Commission Earned" from employees;
+```
+
+95. Find the maximum salary in departments with more than 10 employees
+```sql
+SELECT department_id, MAX(salary) as "Max Salary" FROM employees GROUP BY department_id having count(*) > 10;
+```
+
+96. Display employee names in reverse order.
+```sql
+SELECT LOWER(REVERSE(first_name)) FROM employees;
+```
+
+97. Show employees who have been hired for more than 10 years.
+```sql
+SELECT first_name, hire_date FROM employees WHERE MONTHS_BETWEEN(SYSDATE, hire_date) > 120;
+```
+
+98. Display salaries increased by 20% for hypothetical raises.
+```sql
+SELECT first_name, salary, (salary + (salary * 0.2)) as "Salary with Eidi" from employees;
+```
+
+99. Retrieve employees grouped by their first letter of last names.
+```sql
+SELECT SUBSTR(last_name, 1, 1) as first_letter, COUNT(*) from employees group by SUBSTR(last_name, 1, 1) order by first_letter;
+```
+
+100. Combine multiple single-row and group functions in a single query
+```sql
+-- Retrieve the department ID, the number of employees in each department, the maximum salary, and the average length of employee names.
+
+SELECT department_id, COUNT(*) as TotalEmployee, SUM(salary) as MaxSalary, ROUND(AVG(LENGTH(first_name)), 2) as FirstNameLength from employees group by department_id order by department_id;
 ```
 

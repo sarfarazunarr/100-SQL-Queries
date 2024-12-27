@@ -145,3 +145,154 @@ SELECT first_name, SUBSTR(first_name, 1,3) FROM employees;
 
 -- 50. Replace a specific character in employee names with another.
 SELECT first_name, REPLACE(first_name, 'A', 'J') FROM employees;
+
+-- 51. Round salaries to the nearest hundred
+SELECT first_name, salary, ROUND(salary, -2) FROM employees;
+
+-- 52. Display the floor of each employee’s salary
+SELECT first_name, salary, FLOOR(salary) FROM employees;
+
+-- 53. Calculate the modulus of salaries divided by 1000
+SELECT first_name, salary, MOD(salary, 1000) FROM employees;
+
+-- 54. Find the ceiling of employee salaries
+SELECT first_name, salary, CEIL(salary) FROM employees;
+
+-- 55. Calculate the absolute value of salaries
+SELECT first_name, salary, ABS(salary) FROM employees;
+
+-- 56. Display the current system date
+SELECT SYSDATE FROM dual;
+
+-- 57. Calculate the number of days since each employee was hired
+SELECT first_name, hire_date, ROUND(SYSDATE - hire_date, 2) AS days_since_hired FROM employees;
+
+-- 58. Retrieve the month name of the hire date for each employee
+SELECT first_name, hire_date, TO_CHAR(hire_date, 'Month') AS hire_month FROM employees;
+
+-- 59. Add 30 days to each employee’s hire date
+SELECT first_name, hire_date, (hire_date + 30) FROM employees;
+SELECT first_name, hire_date, ADD_MONTHS(hire_date, 1) FROM employees;
+
+-- 60. Find the last day of the month for each employee’s hire date
+SELECT first_name, hire_date, LAST_DAY(hire_date) FROM employees;
+
+-- 61. Convert salaries to character strings
+SELECT first_name, salary, TO_CHAR(salary) FROM employees;
+
+-- 62. Convert a date string to a date format (available for you to try)
+
+-- 63. Convert employee IDs to character strings
+SELECT first_name, employee_id, TO_CHAR(employee_id, '999') FROM employees;
+
+-- 64. Convert numeric data to a specific format using TO_NUMBER (available for you to try)
+
+-- 65. Convert character data back to dates using TO_DATE
+SELECT first_name, TO_CHAR(hire_date, 'DD Ddspth Month YYYY'), TO_DATE(TO_CHAR(hire_date, 'DD Month YYYY')) FROM employees;
+
+-- 66. Replace NULL commission values with 0
+SELECT first_name, commission_pct, NVL(commission_pct, 0) FROM employees;
+
+-- 67. Display a default job title for employees without one
+SELECT first_name, job_id, NVL(job_id, 'GURU') FROM employees;
+
+-- 68. Find the length of each employee’s phone number
+SELECT first_name, phone_number, LENGTH(phone_number) FROM employees;
+
+-- 69. Concatenate strings only for employees with valid job IDs
+SELECT NVL(first_name || ' ' || last_name || ' ' || job_id, 'Ghareeb Hai job dedo bichary ko!') FROM employees;
+
+-- 70. Return "Valid" or "Invalid" based on whether the salary exceeds a threshold
+SELECT first_name, salary, CASE WHEN salary > 5000 THEN 'Valid' ELSE 'Invalid' END FROM employees;
+
+-- 71. Display the highest salary among employees
+SELECT MAX(salary) FROM employees;
+
+-- 72. Retrieve the maximum commission percentage
+SELECT MAX(commission_pct) FROM employees;
+
+-- 73. Find the maximum length of employee names
+SELECT MAX(LENGTH(first_name)) FROM employees;
+
+-- 74. Display the highest salary in each department
+SELECT department_id, MAX(salary) FROM employees GROUP BY department_id;
+
+-- 75. Retrieve the latest hire date
+SELECT MAX(hire_date) FROM employees;
+
+-- 76. Find the lowest salary among employees
+SELECT MIN(salary) FROM employees;
+
+-- 77. Retrieve the minimum commission percentage
+SELECT MIN(commission_pct) FROM employees;
+
+-- 78. Find the shortest length of employee names
+SELECT MIN(LENGTH(first_name)) FROM employees;
+
+-- 79. Display the minimum salary in each department
+SELECT department_id, MIN(salary) FROM employees GROUP BY department_id;
+
+-- 80. Retrieve the earliest hire date
+SELECT MIN(hire_date) FROM employees;
+
+-- 81. Calculate average salary among employees
+SELECT AVG(salary) FROM employees;
+
+-- 82. Calculate the average commission percentage
+SELECT AVG(commission_pct) FROM employees;
+
+-- 83. Determine the average length of employee names
+SELECT AVG(LENGTH(first_name)) FROM employees;
+
+-- 84. Calculate the average salary by department
+SELECT department_id, AVG(salary) FROM employees GROUP BY department_id;
+
+-- 85. Calculate the average time employees have been employed
+SELECT TRUNC(AVG(SYSDATE - hire_date)) FROM employees; -- Days
+SELECT TRUNC(MOD(AVG(SYSDATE - hire_date), 12)) FROM employees; -- Months
+SELECT TRUNC((AVG(MONTHS_BETWEEN(SYSDATE, hire_date))) / 12) AS "Years of Service" FROM employees; -- Years
+
+-- 86. Count the total number of employees
+SELECT COUNT(*) FROM employees;
+
+-- 87. Count the number of employees with a commission
+SELECT COUNT(commission_pct) FROM employees;
+
+-- 88. Count the employees in each department
+SELECT COUNT(*) FROM employees GROUP BY department_id;
+
+-- 89. Retrieve the count of employees hired in a specific year
+SELECT COUNT(*) FROM employees WHERE TO_CHAR(hire_date, 'YYYY') = 2002;
+
+-- 90. Count the number of employees with salaries above 10,000
+SELECT COUNT(*) FROM employees WHERE salary > 10000;
+
+-- 91. Calculate the total salary in each department
+SELECT department_id, SUM(salary) FROM employees GROUP BY department_id;
+
+-- 92. Find the average salary by job ID
+SELECT job_id, AVG(salary) FROM employees GROUP BY job_id;
+
+-- 93. Count the employees in departments with more than 5 employees
+SELECT department_id, COUNT(*) AS "No. of Employees" FROM employees GROUP BY department_id HAVING COUNT(*) > 5;
+
+-- 94. Calculate the total commission earned by all employees
+SELECT SUM(commission_pct) AS "Total Commission Percentage", SUM(salary * commission_pct) AS "Total Commission Earned" FROM employees;
+
+-- 95. Find the maximum salary in departments with more than 10 employees
+SELECT department_id, MAX(salary) AS "Max Salary" FROM employees GROUP BY department_id HAVING COUNT(*) > 10;
+
+-- 96. Display employee names in reverse order
+SELECT LOWER(REVERSE(first_name)) FROM employees;
+
+-- 97. Show employees who have been hired for more than 10 years
+SELECT first_name, hire_date FROM employees WHERE MONTHS_BETWEEN(SYSDATE, hire_date) > 120;
+
+-- 98. Display salaries increased by 20% for hypothetical raises
+SELECT first_name, salary, (salary + (salary * 0.2)) AS "Salary with Eidi" FROM employees;
+
+-- 99. Retrieve employees grouped by their first letter of last names
+SELECT SUBSTR(last_name, 1, 1) AS first_letter, COUNT(*) FROM employees GROUP BY SUBSTR(last_name, 1, 1) ORDER BY first_letter;
+
+-- 100. Combine multiple single-row and group functions in a single query
+SELECT department_id, COUNT(*) AS TotalEmployee, SUM(salary) AS MaxSalary, ROUND(AVG(LENGTH(first_name)), 2) AS FirstNameLength FROM employees GROUP BY department_id ORDER BY department_id;
